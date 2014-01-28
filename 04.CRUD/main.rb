@@ -5,42 +5,51 @@ db_path = "db/cookbook.sqlite"
 db = SQLite3::Database.new(db_path)
 
 # creates the schema of the database
-# your code here
-sql = %q{
-  
-}
-db.execute(sql)
+sql = %q{ CREATE TABLE Recipes
+  (
+  Id INTEGER primary key autoincrement,
+  Name VARCHAR,
+  Description TEXT,
+  Length INTEGER,
+  Difficulty INTEGER
+  )
+  }
+
+begin
+  db.execute(sql)
+  puts "First visit ? Welcome to the Cookbook!"
+rescue
+  puts "Welcome back!"
+end
 
 #*************************************
 
 # function to create a recipe
-def create_recipe(db,name,description,length,difficulty)
-  # your code here
+def create_recipe(db, name, desc, length, dif)
+  db.execute("INSERT INTO Recipes(Name, Description, Length, Difficulty) VALUES('#{name}', '#{desc}', #{length}, #{dif})")
 end
 
 # function to delete a recipe
 def delete_recipe(db,id)
-  # your code here
+  db.execute("DELETE FROM Recipes WHERE RecipesId = #{id}")
 end
 
 # function to delete all recipes
 def delete_all_recipes(db)
-  # your code here
+  db.execute("DELETE FROM Recipes")
 end
 
 # function to update a recipe
 def update_recipe(db,id,description)
-  # your code here
+  db.execute("UPDATE Recipes SET Recipes.Description = #{description} WHERE RecipesId = #{id}")
 end
 
 def get_recipes(db)
-  # function to get all recipes
+  db.execute("SELECT * FROM Recipes")
 end
 
 
 #*************************************
-
-# program
 
 puts "Salut Robuchon, what do you want to do today?"
 puts "1. create a recipe"
@@ -50,19 +59,29 @@ puts "3. read your recipes"
 choice =  gets.chomp.to_i
 
 if choice == 1
-  # your code here to create a recipe
-  # you need to ask for name, description, length and difficulty
-  
+
+  puts "Name ?" 
+  name = gets.chomp
+
+  puts "Description ?"
+  description = gets.chomp
+
+  puts "Length ?"
+  length = gets.chomp
+
+  puts "Difficulty ?"
+  difficulty = gets.chomp
+
+  create_recipe(db, name, description, length, difficulty)
+
 elsif choice == 2
-  # your code here to delete all recipes
-  
+ delete_all_recipes(db)
+ puts "Recipes deleted !"
+
 elsif choice == 3
-  # your code here to read all recipes
+  get_recipes(db)
 end 
-  
-  
-  
-  
+
   
   
   
