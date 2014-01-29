@@ -1,3 +1,5 @@
 class Recipe < ActiveRecord::Base
-  # your code here
+	def to_s
+		puts "#{name} : #{description} - #{length} min / Difficulty => #{difficulty} / Rating => #{rating}"
+	end
 end
