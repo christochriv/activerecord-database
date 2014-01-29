@@ -1,7 +1,7 @@
 require_relative 'config/application'
 require './models/recipe'
 
-# query the database here
+Recipe.to_s
 
 # gets only the recipes with difficulty 3
 

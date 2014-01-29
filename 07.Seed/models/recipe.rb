@@ -1,3 +1,7 @@
 class Recipe < ActiveRecord::Base
-  # your code here
+  def to_s
+  	puts "Recette n°#{id} - #{name}"
+  	puts "#{description}"
+  	puts "Temps de cuisson: #{length} / Difficulté: #{difficulty}"
+  end
 end
